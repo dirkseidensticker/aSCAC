@@ -38,5 +38,5 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# folder for landcover data
-/Grid
+# unziped landcover data
+Grid/
