@@ -14,6 +14,7 @@ library(raster)
 library(rgdal)
 library(rnaturalearth)
 library(sf)
+library(spdep)
 library(tidyverse)
 library(viridis)
 
@@ -143,11 +144,61 @@ sites.cent <- merge(x = sites, 							# merge sites per style with class (200-ye
                     y = dplyr::select(pottery.cent, -DESCRIPTION), 
                     by = "POTTERY", 
                     allow.cartesian = TRUE)
+
+
+# Distance of sites pertaining to the same style
+# see https://github.com/dirkseidensticker/HumActCentralAfrica_Paper/blob/main/response_eLetter_Giresse_etal.Rmd#L95-L159
+index <- unique(sites$POTTERY)
+res.lst <- list()
+for(i in 1:length(index)){
+  sel <- dplyr::filter(sites, POTTERY == index[i])
+  if(nrow(sel) >= 5){
+    sel.cords <- sf::st_coordinates(sel)
+    sel.knn <- spdep::knearneigh(sel.cords, 
+                                 k = 4, 
+                                 longlat = TRUE)
+
+    sel.dist <- spdep::nbdists(
+      spdep::knn2nb(sel.knn), 
+      sel.cords, 
+      longlat =  TRUE
+      )
+
+    res.lst[[i]] <- data.frame(POTTERY = index[i], 
+                             MEDIAN = median(unlist(sel.dist)))
+  }
+}
+knn.res <- do.call(rbind, res.lst)
+
+pottery.knn <- merge(
+  x = pottery, 
+  y = knn.res, 
+  by = "POTTERY")
+
+breaks <- seq(-1000, 2000, 100)
+class <- seq(1,length(breaks), 1)
+breaks <- data.frame(breaks, class)
+for(i in 1:nrow(breaks)){breaks[i, "labels"] <- paste0(breaks[i,"class"], ": ", breaks[i,"breaks"], "/", breaks[i+1,"breaks"])}
+
+pottery.res <- data.frame(matrix(ncol = ncol(pottery.knn)+1, nrow = 0))
+x <- c(names(pottery.knn), "CLASS")
+colnames(pottery.res) <- x
+
+for (i in 1:length(pottery.knn$POTTERY)){
+  for (j in 1:(nrow(breaks)-1)) {
+    if(pottery.knn[i,"TO"] > breaks[j,"breaks"] & 
+       pottery.knn[i,"FROM"] < breaks[j+1,"breaks"]){
+      l <- pottery.knn[i,]
+      l$CLASS <- breaks[j,"labels"]
+      pottery.res <- rbind(pottery.res, as.data.frame(l))
+    }
+  }
+}
+pottery.res$AGE <- (as.numeric(sub("/.*", "", sub(".*? ", "", pottery.res$CLASS))) + as.numeric(sub(".*/", "", sub(".*? ", "", pottery.res$CLASS)))) / 2
+pottery.res$AGE.jitter 	<- jitter(pottery.res$AGE, 2)
 ```
 
-Some basic statistics (see Fig. 3 in [Seidensticker et al. 2021](https://advances.sciencemag.org/content/7/7/eabd8352))
-
-```{r stats, warning = FALSE, echo = FALSE, fig.align = 'center', dpi = 300, out.width = '75%'}
+```{r stats, warning = FALSE, echo = FALSE, fig.dim = c(6, 8), fig.align = 'center', dpi = 300, out.width = '75%', fig.cap="Fig. 1: Evolution of the numerical abundance and geographical distribution of pottery styles in the Congo rainforest over the past 3000 years (see Seidensticker et al. 2021: Fig. 3)."}
 freq.plt <- ggplot() + 
   geom_bar(data = pottery.cent.freq, 
            aes(x = Var1, 
@@ -185,25 +236,37 @@ area.plt <- ggplot() +
                    group = AGE), 
                outlier.shape = 3, 
                width = 75) + 
-  scale_x_continuous("cal BCE/CE", 
-                     expand = c(0, 0), 
-                     breaks = seq(-1000, 2000, 200)) + 
+  scale_x_continuous(expand = c(0, 0)) + 
   scale_y_sqrt("Distribution area of \n pottery groups (1000 km^2)", 
                expand = c(0, 0)) + 
+  theme_classic() + 
+  theme(axis.title.x = element_blank(), 
+        axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank())
+
+dist.plt <- ggplot(pottery.res, 
+       aes(x = AGE.jitter, 
+           y = MEDIAN, 
+           group = AGE)) +  
+  geom_boxplot(outlier.shape = 3, 
+               width = 75) + 
+  scale_x_continuous("cal BCE/CE", 
+                     limits = c(-1000, 1800), 
+                     breaks = seq(-1000, 1800, 500)) +
+  scale_y_continuous("Median distance (km)", expand = c(0, 0)) + 
   theme_classic()
 
 cowplot::plot_grid(freq.plt, 
                    qty.sites.plt, 
                    area.plt, 
+                   dist.plt, 
                    ncol = 1, 
                    align = "v", axis = "lr", 
                    labels = "auto", 
-                   rel_heights = c(1, 1, 1.5))
+                   rel_heights = c(1, 1, 1, 1.2))
 ```
 
-Map of the distribution areas of pottery styles through time:
-
-```{r map, warning = FALSE, echo = FALSE, fig.align = 'center', dpi = 300, out.width = '100%'}
+```{r map, warning = FALSE, echo = FALSE, fig.align = 'center', fig.dim = c(8, 6), dpi = 300, out.width = '100%', fig.cap="Fig. 2: Map of the distribution areas of pottery styles through time"}
 ggplot() + 
   geom_sf(data = land50, fill = "#ffebbe", color = NA) + 
   #geom_raster(data = rfs.bd1.7, aes(y = y, x = x), fill = '#00734d') + 
@@ -216,8 +279,10 @@ ggplot() +
   geom_sf(data = boundary_lines_land50, size = .1, color = 'black') + 
   geom_sf(data = pottery.cent.meta %>% sf::st_as_sf(), 
           aes(fill = AGE)) + 
+  scale_x_continuous(breaks = seq(10, 30, 10)) + 
+  scale_y_continuous(breaks = seq(-10, 10, 10)) + 
   scale_fill_viridis() + 
-  facet_wrap(AGE~.) + 
+  facet_wrap(CLASS ~ .) + 
   coord_sf(xlim = c(8, 27), 
            ylim = c(-10, 6)) + 
   theme_few() +

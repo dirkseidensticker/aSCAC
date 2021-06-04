@@ -13,14 +13,25 @@ Rainforest from AD 400 Urges Reassessment of the Bantu Expansion.
 Science Advances 7. <https://doi.org/10.1126/sciadv.abd8352>. (data:
 <https://github.com/dirkseidensticker/HumActCentralAfrica_Paper>)
 
-Some basic statistics (see Fig. 3 in [Seidensticker et
-al. 2021](https://advances.sciencemag.org/content/7/7/eabd8352))
+<div class="figure" style="text-align: center">
 
-<img src="README_files/figure-gfm/stats-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/stats-1.png" alt="Fig. 1: Evolution of the numerical abundance and geographical distribution of pottery styles in the Congo rainforest over the past 3000 years (see Seidensticker et al. 2021: Fig. 3)." width="75%" />
+<p class="caption">
+Fig. 1: Evolution of the numerical abundance and geographical
+distribution of pottery styles in the Congo rainforest over the past
+3000 years (see Seidensticker et al. 2021: Fig. 3).
+</p>
 
-Map of the distribution areas of pottery styles through time:
+</div>
 
-<img src="README_files/figure-gfm/map-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="README_files/figure-gfm/map-1.png" alt="Fig. 2: Map of the distribution areas of pottery styles through time" width="100%" />
+<p class="caption">
+Fig. 2: Map of the distribution areas of pottery styles through time
+</p>
+
+</div>
 
 ## Datasets
 
