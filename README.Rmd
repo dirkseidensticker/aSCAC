@@ -35,34 +35,6 @@ pottery <- data.table::fread("potterygroups.csv", encoding = "UTF-8")
 
 sites.meta <- sites %>% 
   dplyr::left_join(pottery, by = "POTTERY")
-
-# landcover data from "Global Land Cover 2000 Project (GLC 2000)" https://ec.europa.eu/jrc/en/scientific-tool/global-land-cover
-temp <- tempfile()
-download.file("https://forobs.jrc.ec.europa.eu/data/products/glc2000/Africa_v5_Grid.zip",temp)
-unzip(temp)
-unlink(temp)
-dpath <- "Grid/africa_v5/hdr.adf"
-x <- new("GDALReadOnlyDataset", dpath)
-getDriver(x)
-getDriverLongName(getDriver(x))
-hdr <- asSGDF_GROD(x)
-hdr <- raster(hdr)
-# extent: xmin,xmax,ymin,ymax
-e  <- extent(5, 33, -17, 13) 
-rfs <- crop(hdr, e) 
-rfs.p <- rasterToPoints(rfs)
-# Make the points a dataframe for ggplot & subset rainforest bands 1-7
-rfs.bd1.7 <- data.frame(rfs.p)
-rfs.bd1.7 <- subset(rfs.bd1.7, band1 >= 1 & band1 <= 7)
-# Swamp forest
-rfs.bd5 <- data.frame(rfs.p)
-rfs.bd5 <- subset(rfs.bd5, band1 == 5)
-# swamp buchland and grassland
-rfs.bd17 <- data.frame(rfs.p)
-rfs.bd17 <- subset(rfs.bd17, band1 == 17)
-# water
-rfs.bd26 <- data.frame(rfs.p)
-rfs.bd26 <- subset(rfs.bd26, band1 == 26)
 ```
 
 This repository contains an archive of pottery groups in Central Africa.
@@ -82,9 +54,18 @@ for(i in 1:nrow(breaks)){
 
 # Frequency of sites per pottery group
 
-pottery.sites.freq <- as.data.frame(stats::aggregate(SITE ~ POTTERY, 
-                                                     data =sites, 
-                                                     FUN = length)) 
+# pottery.sites.freq <- as.data.frame(stats::aggregate(SITE ~ POTTERY, 
+#                                                      data = sites, 
+#                                                      FUN = length)) 
+
+pottery.sites.freq <- as.data.frame(
+  stats::aggregate(
+    LAT + LONG ~ POTTERY, 
+    data = sites %>%
+      dplyr::distinct(LAT, LONG, POTTERY), 
+    FUN = length))
+
+names(pottery.sites.freq) <- c("POTTERY", "SITE")
 
 # Area per pottery group (Convex hull)
 # see https://github.com/joelgombin/concaveman
@@ -304,12 +285,54 @@ ggplot() +
 
 ### sites.csv
 
+A list of sites and the described pottery styles / groups that were found there:
+
 | Datafield | Description |
 | --------- | ----------- |
-
-
+| REGION    | Region (cf. Seidensticker et al. 2021) |
+| SITE      | Name of the site |
+| LAT       | Latitude    |
+| LONG      | Longitude   |
+| POTTERY   | Pottery style (cf. `potterygroups.csv`) |
+| SOURCE    | Source      |
 
 ### potterygroups.csv
 
+
 | Datafield | Description |
 | --------- | ----------- |
+| ID        |             |
+| POTTERY   | Name of the pottery group / style |
+| FROM      | maximum age  |
+| TO        | minimal age |
+| DESCRIPTION | A description of the chronological arguments of the group (cf. Seidensticker et al. 2021 Data S2) |
+| REGION    | Region (cf. Seidensticker et al. 2021) |
+| COL       | a hexadecimal color code for plott (cf. Seidensticker 2021 Ch. 5) |
+
+
+### potterydrawings.csv
+
+This dataset contains a list of drawn pottery sherds and vessels with their sources and as much metadata as could be extracted from the literature. It further contains measurements (cf. Seidensticker 2021, pp. 31-32 Abb. 6).
+
+<p float="left">
+  <img src="README_files/potterydrawings_panel.png" width="49%" />
+  <img src="README_files/potterydrawings_stack.png" width="49%" />
+</p>
+
+| Datafield | Description |
+| --------- | ----------- |
+| SITE      | Name of the site (cf. `site.csv`) |
+| FEATURE   |             |
+| OBJECT    |             |
+| POTTERY   | Pottery style (cf. `potterygroups.csv`) |
+| TypeOrig  |             |
+| muendungsD | diameter at the mouth |
+| muendungsH | height at the mouth (maximal height) |
+| minD      | minimal diameter |
+| minD_H    | height at the minimal diameter (above base) |
+| maxD      | maximum diameter |
+| maxD_H    | height at the maximum diameter (above base) |
+| bodenD    | diameter of the base |
+| SOURCE    | Sourece     |
+
+
