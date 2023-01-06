@@ -31,7 +31,7 @@ for (i in 1:length(id)) {
   n = nrow(c14.sel)
   
   if(n >= 2){
-    paste0(i, " - ", id[i])
+    print(paste0(i, " - ", id[i]))
     
     # Define NIMBLE Model
     phasemodel <- nimbleCode({
@@ -116,14 +116,24 @@ res.bayes.median <- res.bayes %>%
                 prob = 0) %>%
   dplyr::select(names(res.bayes))
 
+res.bayes
+
+#dplyr::arrange(c14age) %>% 
+#  dplyr::mutate_at(vars(LABNR), dplyr::funs(factor(., levels=unique(.)))) %>%
+
+#arrange(persistent, score) %>% mutate(id = factor(id, levels=unique(id))) 
+
 # plotting:
-ggplot(res.bayes) + 
+res.bayes %>%
+  dplyr::arrange(median) %>%
+  ggplot() + 
   ggridges::geom_ridgeline(aes(x = -bp + 1950, y = POTTERY, height = prob, fill = alpha), scale = 100) + 
   geom_vline(data = res.bayes.median, aes(xintercept = -bp + 1950)) +
-  scale_x_continuous("cal BCE/CE") + 
-  facet_grid(POTTERY ~ ., space = "free", scales = "free_y") + 
+  scale_x_continuous("cal BCE/CE", limits = c(-2000, 2000)) + 
+  facet_grid(factor(POTTERY, levels = unique(POTTERY)) ~ ., space = "free", scales = "free_y") + 
   theme(strip.text = element_blank(), 
         axis.title.y = element_blank())
+ggsave("BayesPhases.jpg", width = 6, height = 6)
 
 res.bayes %>% 
   dplyr::distinct(median, POTTERY, alpha) %>%
