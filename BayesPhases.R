@@ -25,6 +25,7 @@ res.lst <- list()
 
 for (i in 1:length(id)) {
   c14.sel <- c14 %>% 
+    dplyr::filter(C14AGE  > 70) %>%
     dplyr::filter(grepl(id[i], POTTERY)) %>% # filter for dates related to style
     dplyr::filter(!grepl(paste0("\\(" , id[i], "\\)"), POTTERY)) # remove cases in parantheses
   
@@ -124,18 +125,24 @@ res.bayes
 #arrange(persistent, score) %>% mutate(id = factor(id, levels=unique(id))) 
 
 # plotting:
-res.bayes %>%
-  dplyr::arrange(median) %>%
-  ggplot() + 
-  ggridges::geom_ridgeline(aes(x = -bp + 1950, y = POTTERY, height = prob, fill = alpha), scale = 100) + 
-  geom_vline(data = res.bayes.median, aes(xintercept = -bp + 1950)) +
+ggplot(res.bayes) + 
+  ggridges::geom_ridgeline(
+    aes(x = -bp + 1950, 
+        y = stats::reorder(POTTERY, 
+                           median, 
+                           decreasing = TRUE), 
+        height = prob, 
+        fill = alpha), 
+    scale = 100, 
+    color = NA) + 
   scale_x_continuous("cal BCE/CE", limits = c(-2000, 2000)) + 
-  facet_grid(factor(POTTERY, levels = unique(POTTERY)) ~ ., space = "free", scales = "free_y") + 
-  theme(strip.text = element_blank(), 
-        axis.title.y = element_blank())
-ggsave("BayesPhases.jpg", width = 6, height = 6)
+  theme(axis.title.y = element_blank())
+ggsave("BayesPhases.jpg", width = 6, height = 8)
 
+# export medians
 res.bayes %>% 
   dplyr::distinct(median, POTTERY, alpha) %>%
-  dplyr::mutate(median = -median + 1950) %>%
-  write.csv("BayesPhases.csv")
+  dplyr::mutate(median = round(-median + 1950)) %>%
+  reshape2::dcast(POTTERY ~ alpha, value.var = "median") %>%
+  dplyr::select(POTTERY, start, end) %>%
+  write.csv("BayesPhases.csv", row.names = F)

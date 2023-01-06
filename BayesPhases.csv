@@ -1,23 +1,66 @@
-"","median","POTTERY","alpha"
-"1",-1189.84877775074,"Obobogo","start"
-"2",-15.0361627744878,"Obobogo","end"
-"3",-855.290089942599,"Malongo/Bissiang","start"
-"4",-167.832794334518,"Malongo/Bissiang","end"
-"5",-1050,"Bwambé/Mpoengu","start"
-"6",-50,"Bwambé/Mpoengu","end"
-"7",-1235.56941811396,"Dibamba E","start"
-"8",-51.336189272741,"Dibamba E","end"
-"9",69.7722267966165,"Dibamba D","start"
-"10",317.435530856302,"Dibamba D","end"
-"11",71.3262702680765,"Campo","start"
-"12",380.355179234231,"Campo","end"
-"13",88.805859832594,"Akonetye North","start"
-"14",232.896964997307,"Akonetye North","end"
-"15",69.2444574895885,"Akonetye South","start"
-"16",355.050108840086,"Akonetye South","end"
-"17",461.809913127456,"Bidjouka","start"
-"18",611.448313629494,"Bidjouka","end"
-"19",1101.8259675272,"Dibamba C","start"
-"20",1294.18107809236,"Dibamba C","end"
-"21",966.868015855496,"Dibamba B","start"
-"22",1851.09699754271,"Dibamba B","end"
+"POTTERY","start","end"
+"Akonetye North",89,233
+"Akonetye South",69,355
+"Angondjé",1032,1486
+"Batalimo-Maluba",-137,566
+"Bidjouka",462,611
+"Bokele",-284,416
+"Bokuma",287,706
+"Bolaopi",613,1638
+"Bolondo",1421,1528
+"Bondongo",1165,1404
+"Botendo",1673,1879
+"Buela",1145,1570
+"Bwambé/Mpoengu",-1050,-50
+"Campo",71,380
+"Carboneras",583,927
+"Carinated Broadly Grooved",220,654
+"Ceramic Later Stone Age 1",-1050,-50
+"Ceramic Later Stone Age 2",-469,-194
+"Classical Kisalian",727,1415
+"Dibamba A",1648,1840
+"Dibamba B",967,1851
+"Dibamba C",1102,1294
+"Dibamba D",70,317
+"Dibamba E",-1236,-51
+"Dimba/Mbafu/Group II",1459,1766
+"Early Kisalian",597,1326
+"Early Pottery Phase",-205,32
+"Ebambe",1484,1799
+"Gombe",364,589
+"Group X",1437,1801
+"Herringbone",-297,654
+"Ilambi",-208,1716
+"Imbonga",-1050,-50
+"Inganda",-1050,-50
+"Kabambian A",1131,1570
+"Kabambian B",1036,1735
+"Kamilambian",422,1015
+"Kay Ladio",152,360
+"Kindoki",1179,1479
+"Kitala",326,426
+"Kongo A/Group IV",1519,1740
+"Kongo B/Group V",1534,1781
+"Kongo C/Group III",1481,1691
+"Kongo D",1523,1699
+"Lingonda",247,739
+"Lope",1125,1677
+"Malongo/Bissiang",-855,-168
+"Mbafu/Group II",1280,1708
+"Mbandaka",1126,1368
+"Middle Pottery Phase",33,626
+"Misenga/Mbafu/Group II",1298,1452
+"Monkoto",-302,567
+"Moubiri",1404,1632
+"Nandá/Group II",727,1184
+"Ngovo",-260,161
+"Nkile",1357,1440
+"Obobogo",-1190,-15
+"Okala/Epona/Yindo",-473,-246
+"Okanda",-224,565
+"Otoumbi",-155,649
+"Oveng",-236,769
+"Pikunda-Munda",-44,378
+"Spaced Curvilinear",462,924
+"Wema",1327,1502
+"Woven I",769,1670
