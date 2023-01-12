@@ -32,7 +32,7 @@ for (i in 1:length(id)) {
   n = nrow(c14.sel)
   
   if(n >= 2){
-    print(paste0(i, " - ", id[i]))
+    print(paste0(i, "/", length(id), " - ", id[i], " (", n, " c14-dates)"))
     
     # Define NIMBLE Model
     phasemodel <- nimbleCode({
@@ -66,8 +66,13 @@ for (i in 1:length(id)) {
       c14.sel$C14STD,
       verbose = FALSE))
     
-    inits <- list(alpha = c(floor(min(c14.sel$C14AGE)/1000) * 1000,
-                            ceiling(max(c14.sel$C14AGE)/1000) * 1000), 
+    # important to keep enough 'space' before and after
+    start <- floor(min(c14.sel$C14AGE)/1000) * 1000 - 1000
+    if (start < 0) { start <- 0 } # avoid negative starts
+    end <- ceiling(max(c14.sel$C14AGE)/1000) * 1000 + 1000
+    
+    inits <- list(alpha = c(start,
+                            end),
                   theta = m.dates)
     
     #Run MCMC
@@ -93,7 +98,6 @@ for (i in 1:length(id)) {
     start.dens$median <- data.frame(mcmc.samples$summary)[2, "Median"]
     start.dens$POTTERY <- id[i]
     start.dens$alpha <- "start"
-    
     
     end.dens <- density(matrix(mcmc.samples$samples[,'alpha[1]']))
     end.dens <- data.frame(bp = end.dens$x, 
@@ -124,18 +128,25 @@ res.bayes
 
 #arrange(persistent, score) %>% mutate(id = factor(id, levels=unique(id))) 
 
+# define order of plotting (oldest start median)
+order <- res.bayes.median %>%
+  dplyr::filter(alpha == "start") %>%
+  dplyr::arrange(dplyr::desc(median)) %>%
+  dplyr::pull(POTTERY)
+
 # plotting:
 ggplot(res.bayes) + 
   ggridges::geom_ridgeline(
     aes(x = -bp + 1950, 
-        y = stats::reorder(POTTERY, 
-                           median, 
-                           decreasing = TRUE), 
+        #y = stats::reorder(POTTERY, 
+        #                   median, 
+        #                   decreasing = TRUE), 
+        y = factor(POTTERY, levels = order),
         height = prob, 
         fill = alpha), 
     scale = 100, 
     color = NA) + 
-  scale_x_continuous("cal BCE/CE", limits = c(-2000, 2000)) + 
+  scale_x_continuous("cal BCE/CE", limits = c(-1500, 2000)) + 
   theme(axis.title.y = element_blank())
 ggsave("BayesPhases.jpg", width = 6, height = 8)
 
