@@ -6,19 +6,19 @@ library(tidyr)
 library(rcarbon)
 library(nimbleCarbon)
 
-c14 <- rbind(
-  data.table::fread(
-    "https://raw.githubusercontent.com/dirkseidensticker/aDRAC/master/aDRAC.csv", 
-    encoding = "UTF-8"),
-  data.table::fread(
-    "C:/Users/dirks/OneDrive/Programmieren/aDRACv2_unpubl.csv", 
-    dec = ",", 
-    encoding = "UTF-8")
-)
+c14 <- data.table::fread(
+  "https://raw.githubusercontent.com/dirkseidensticker/aDRAC/master/aDRAC.csv", 
+  encoding = "UTF-8") %>%
+  dplyr::mutate(C14AGE = as.numeric(C14AGE),
+                C14STD = as.numeric(C14STD))
 
 pottery <- data.table::fread("https://raw.githubusercontent.com/dirkseidensticker/aSCAC/master/potterygroups.csv", 
                              encoding = "UTF-8") %>%
   dplyr::select(-DESCRIPTION)
+
+# manual check for styles being present in aSCAC pottery description list:
+#c14 %>% dplyr::distinct(POTTERY) %>% dplyr::filter(!(POTTERY %in% c(pottery %>% dplyr::distinct(POTTERY) %>% dplyr::pull(POTTERY))))
+
 
 id <- pottery$POTTERY
 res.lst <- list()
@@ -60,7 +60,6 @@ for (i in 1:length(id)) {
     data <- list(X = c14.sel$C14AGE, 
                  sigma = c14.sel$C14STD)
 
-    
     m.dates = rcarbon::medCal(rcarbon::calibrate(
       c14.sel$C14AGE,
       c14.sel$C14STD,
