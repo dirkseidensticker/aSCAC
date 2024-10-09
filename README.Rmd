@@ -11,7 +11,7 @@ library(concaveman)
 library(ggplot2)
 library(ggthemes)
 library(raster)
-library(rgdal)
+#library(rgdal)
 library(rnaturalearth)
 library(sf)
 library(spdep)
@@ -250,21 +250,24 @@ cowplot::plot_grid(freq.plt,
 ```{r map, warning = FALSE, echo = FALSE, fig.align = 'center', fig.dim = c(8, 6), dpi = 300, out.width = '100%', fig.cap="Fig. 2: Map of the distribution areas of pottery styles through time"}
 
 # set label:
-lbl <- unique(pottery.cent.meta[,c("AGE", "CLASS")])
+lbl <- unique(pottery.cent.meta[,c("AGE", "CLASS")]) %>%
+  dplyr::filter(CLASS != "30: 1900/2000")
 lbl$CLASS <- sub(".*? ", "", lbl$CLASS)
 lbl <- setNames(lbl$CLASS, lbl$AGE)
 
 ggplot() + 
-  geom_sf(data = land50, fill = "#ffebbe", color = NA) + 
+  geom_sf(data = land50, fill = "white", color = NA) + 
   #geom_raster(data = rfs.bd1.7, aes(y = y, x = x), fill = '#00734d') + 
   #geom_raster(data = rfs.bd5, aes(y = y, x = x), fill = '#2b916a') + 
   #geom_raster(data = subset(rfs.bd17, x < 20), aes(y = y, x = x), fill = '#54eeb7') + 
   #geom_raster(data = rfs.bd26, aes(y = y, x = x), fill = '#44afe3') + 
-  geom_sf(data = coast50, size = .5, color = '#44afe3') + 
-  geom_sf(data = rivers50, size = .5, color = '#44afe3') + 
-  geom_sf(data = lakes50, fill = '#44afe3', color = NA) + 
-  geom_sf(data = boundary_lines_land50, size = .1, color = 'black') + 
-  geom_sf(data = pottery.cent.meta %>% sf::st_as_sf(), 
+  geom_sf(data = coast50, size = .5, color = 'darkgrey') + 
+  geom_sf(data = rivers50, size = .5, color = 'darkgrey') + 
+  geom_sf(data = lakes50, fill = 'darkgrey', color = NA) + 
+  geom_sf(data = boundary_lines_land50, linewidth = .1, linetype = "dashed", color = 'black') + 
+  geom_sf(data = pottery.cent.meta %>%
+            dplyr::filter(CLASS != "30: 1900/2000") %>% 
+            sf::st_as_sf(), 
           aes(fill = AGE)) + 
   scale_x_continuous(breaks = seq(10, 30, 10)) + 
   scale_y_continuous(breaks = seq(-10, 10, 10)) + 
@@ -274,9 +277,11 @@ ggplot() +
   coord_sf(xlim = c(8, 27), 
            ylim = c(-10, 6)) + 
   theme_few() +
-  theme(panel.background = element_rect(fill = "#dff1f9"),
+  theme(panel.background = element_rect(fill = "#dcdcdc"),
         plot.background = element_rect(color = NA, 
-                                       fill = NA))
+                                       fill = NA), 
+        axis.text = element_blank(), 
+        axis.ticks = element_blank())
 ```
 
 ## Datasets

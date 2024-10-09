@@ -13,9 +13,25 @@ Rainforest from AD 400 Urges Reassessment of the Bantu Expansion.
 Science Advances 7. <https://doi.org/10.1126/sciadv.abd8352>. (data:
 <https://github.com/dirkseidensticker/HumActCentralAfrica_Paper>)
 
-<img src="README_files/figure-gfm/stats-1.png" title="Fig. 1: Evolution of the numerical abundance and geographical distribution of pottery styles in the Congo rainforest over the past 3000 years (see Seidensticker et al. 2021: Fig. 3)." alt="Fig. 1: Evolution of the numerical abundance and geographical distribution of pottery styles in the Congo rainforest over the past 3000 years (see Seidensticker et al. 2021: Fig. 3)." width="75%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
 
-<img src="README_files/figure-gfm/map-1.png" title="Fig. 2: Map of the distribution areas of pottery styles through time" alt="Fig. 2: Map of the distribution areas of pottery styles through time" width="100%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/stats-1.png" alt="Fig. 1: Evolution of the numerical abundance and geographical distribution of pottery styles in the Congo rainforest over the past 3000 years (see Seidensticker et al. 2021: Fig. 3)." width="75%" />
+<p class="caption">
+Fig. 1: Evolution of the numerical abundance and geographical
+distribution of pottery styles in the Congo rainforest over the past
+3000 years (see Seidensticker et al. 2021: Fig. 3).
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="README_files/figure-gfm/map-1.png" alt="Fig. 2: Map of the distribution areas of pottery styles through time" width="100%" />
+<p class="caption">
+Fig. 2: Map of the distribution areas of pottery styles through time
+</p>
+
+</div>
 
 ## Datasets
 
@@ -37,15 +53,15 @@ found there:
 
 ### potterygroups.csv
 
-| Datafield   | Description                                                                                       |
-|-------------|---------------------------------------------------------------------------------------------------|
-| ID          |                                                                                                   |
-| POTTERY     | Name of the pottery group / style                                                                 |
-| FROM        | maximum age                                                                                       |
-| TO          | minimal age                                                                                       |
+| Datafield | Description |
+|----|----|
+| ID |  |
+| POTTERY | Name of the pottery group / style |
+| FROM | maximum age |
+| TO | minimal age |
 | DESCRIPTION | A description of the chronological arguments of the group (cf. Seidensticker et al. 2021 Data S2) |
-| REGION      | Region (cf. Seidensticker et al. 2021)                                                            |
-| COL         | a hexadecimal color code for plott (cf. Seidensticker 2021 Ch. 5)                                 |
+| REGION | Region (cf. Seidensticker et al. 2021) |
+| COL | a hexadecimal color code for plott (cf. Seidensticker 2021 Ch. 5) |
 
 ### potterydrawings.csv
 
