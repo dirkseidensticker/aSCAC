@@ -27,7 +27,8 @@ for (i in 1:length(id)) {
   c14.sel <- c14 %>% 
     dplyr::filter(C14AGE  > 70) %>%
     dplyr::filter(grepl(id[i], POTTERY)) %>% # filter for dates related to style
-    dplyr::filter(!grepl(paste0("\\(" , id[i], "\\)"), POTTERY)) # remove cases in parantheses
+    dplyr::filter(!grepl(paste0("\\(" , id[i], "\\)"), POTTERY)) %>% # remove cases in parantheses
+    dplyr::filter(!grepl("II", CLASS)) # remove unsecure dates
   
   n = nrow(c14.sel)
   
