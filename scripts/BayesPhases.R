@@ -12,9 +12,10 @@ c14 <- data.table::fread(
   dplyr::mutate(C14AGE = as.numeric(C14AGE),
                 C14STD = as.numeric(C14STD))
 
-pottery <- data.table::fread("https://raw.githubusercontent.com/dirkseidensticker/aSCAC/master/potterygroups.csv", 
+pottery <- data.table::fread("potterygroups.csv", 
                              encoding = "UTF-8") %>%
-  dplyr::select(-DESCRIPTION)
+  dplyr::select(-DESCRIPTION) %>%
+  dplyr::filter(!POTTERY %in% c("Stone to Metal Age 1", "Stone to Metal Age 2", "Iron Age 1", "Iron Age 2"))
 
 # manual check for styles being present in aSCAC pottery description list:
 #c14 %>% dplyr::distinct(POTTERY) %>% dplyr::filter(!(POTTERY %in% c(pottery %>% dplyr::distinct(POTTERY) %>% dplyr::pull(POTTERY))))

@@ -42,9 +42,8 @@ c14 <- data.table::fread(
 # Spatial data ----
 f <- geojsonsf::geojson_sf("GIS/regions.geojson")
 
-
 pottery <- read.csv(
-  "https://raw.githubusercontent.com/dirkseidensticker/aSCAC/master/potterygroups.csv",
+  "potterygroups.csv",
   encoding = "UTF-8")
 # styleschrono$POSc <- as.character(styleschrono$POS)
 pottery$FROM <- as.numeric(pottery$FROM)

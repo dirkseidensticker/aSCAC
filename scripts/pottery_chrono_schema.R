@@ -198,8 +198,13 @@ filterA <- LETTERS[seq(from = 1, to = 8)]
 style.box[style.box$COL == "" | is.na(style.box$COL), "COL"] <- "#808080"
 style.box[is.na(style.box$COL),"COL"] <- "#808080"
 
+remove <- c(
+  "mixed", 
+  "I", "III", "IV", "V", "VI", 
+  "Iron Age 1", "Iron Age 2")
+
 # PLOT ----
-p <- ggplot(data = dplyr::filter(style.box, style != "mixed"), 
+p <- ggplot(data = dplyr::filter(style.box, !style %in% remove), 
        aes(x = FROM, 
            y = reorder(style, FROM), 
            xend = TO, 
@@ -210,12 +215,12 @@ p <- ggplot(data = dplyr::filter(style.box, style != "mixed"),
   scale_linetype_manual(values = c("11", "solid")) + 
   scale_color_identity() + 
   ggnewscale::new_scale_color() + 
-  geom_line(data = dplyr::filter(styleprob, style != "mixed"), 
+  geom_line(data = dplyr::filter(styleprob, !style %in% remove), 
             aes(x = grid.calBP,
                 y = style,
                 color = grid.PrDens), 
             size = 1.5) + 
-  geom_point(data = dplyr::filter(styleprob.med, style != "mixed"), 
+  geom_point(data = dplyr::filter(styleprob.med, !style %in% remove), 
              aes(x = TO, y = style), 
              color = "black", fill = "white", shape = 21, size = 1) +   
   geom_label(aes(label = style), 
