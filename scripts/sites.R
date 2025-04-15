@@ -8,4 +8,4 @@ data.table::fread("sites.csv", encoding = "UTF-8") %>%
                remove = F, 
                crs = 4326, 
                na.fail = F) %>%
-  sf::st_write(dsn = "sites.geojson", layer = "sites")
+  sf::st_write(dsn = "sites.geojson", layer = "sites", delete_dsn = TRUE)
