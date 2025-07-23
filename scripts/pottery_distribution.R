@@ -9,7 +9,8 @@ sites <- data.table::fread("sites.csv", encoding = "UTF-8") %>%
     coords = c("LONG", "LAT"),
     crs = 4326, 
     remove = F
-  )
+  ) %>%
+  dplyr::filter(POTTERY != "indet")
 
 # Frequency of sites per pottery group
 pottery.sites.freq <- as.data.frame(
