@@ -36,6 +36,7 @@
 { "type": "Feature", "properties": { "SITE": "Nachtigal D", "LAT": 4.2, "LONG": 11.6 }, "geometry": { "type": "Point", "coordinates": [ 11.6, 4.2 ] } },
 { "type": "Feature", "properties": { "SITE": "Ndindan", "LAT": 3.91, "LONG": 11.5 }, "geometry": { "type": "Point", "coordinates": [ 11.5, 3.91 ] } },
 { "type": "Feature", "properties": { "SITE": "Nkang", "LAT": 4.27, "LONG": 11.32 }, "geometry": { "type": "Point", "coordinates": [ 11.32, 4.27 ] } },
+{ "type": "Feature", "properties": { "SITE": "Nya Zanga", "LAT": 2.501, "LONG": 12.025 }, "geometry": { "type": "Point", "coordinates": [ 12.025, 2.501 ] } },
 { "type": "Feature", "properties": { "SITE": "Obobogo", "LAT": 3.82, "LONG": 11.5 }, "geometry": { "type": "Point", "coordinates": [ 11.5, 3.82 ] } },
 { "type": "Feature", "properties": { "SITE": "Okolo", "LAT": 3.93, "LONG": 11.52 }, "geometry": { "type": "Point", "coordinates": [ 11.52, 3.93 ] } },
 { "type": "Feature", "properties": { "SITE": "Otto Mbong", "LAT": 2.4, "LONG": 12.51 }, "geometry": { "type": "Point", "coordinates": [ 12.51, 2.4 ] } },
