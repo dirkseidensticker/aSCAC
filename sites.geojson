@@ -477,6 +477,7 @@
 { "type": "Feature", "properties": { "SITE": "Mokelo", "LAT": 4.06, "LONG": 18.64 }, "geometry": { "type": "Point", "coordinates": [ 18.64, 4.06 ] } },
 { "type": "Feature", "properties": { "SITE": "Mondoli", "LAT": 3.98, "LONG": 18.64 }, "geometry": { "type": "Point", "coordinates": [ 18.64, 3.98 ] } },
 { "type": "Feature", "properties": { "SITE": "Motenge-Boma", "LAT": 3.24, "LONG": 18.65 }, "geometry": { "type": "Point", "coordinates": [ 18.65, 3.24 ] } },
+{ "type": "Feature", "properties": { "SITE": "Njuku-Mission", "LAT": 5.13, "LONG": 19.41 }, "geometry": { "type": "Point", "coordinates": [ 19.41, 5.13 ] } },
 { "type": "Feature", "properties": { "SITE": "Ndengu", "LAT": 5.1, "LONG": 19.84 }, "geometry": { "type": "Point", "coordinates": [ 19.84, 5.1 ] } },
 { "type": "Feature", "properties": { "SITE": "Nzambi", "LAT": 3.16, "LONG": 18.64 }, "geometry": { "type": "Point", "coordinates": [ 18.64, 3.16 ] } },
 { "type": "Feature", "properties": { "SITE": "Sidi", "LAT": 5.02, "LONG": 19.87 }, "geometry": { "type": "Point", "coordinates": [ 19.87, 5.02 ] } },
