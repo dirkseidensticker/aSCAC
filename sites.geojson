@@ -543,6 +543,7 @@
 { "type": "Feature", "properties": { "SITE": "Malemba-Nkulu", "LAT": -8.06, "LONG": 26.8 }, "geometry": { "type": "Point", "coordinates": [ 26.8, -8.06 ] } },
 { "type": "Feature", "properties": { "SITE": "Sanga", "LAT": -8.18, "LONG": 26.49 }, "geometry": { "type": "Point", "coordinates": [ 26.49, -8.18 ] } },
 { "type": "Feature", "properties": { "SITE": "Bolaopi", "LAT": 3.6, "LONG": 8.72 }, "geometry": { "type": "Point", "coordinates": [ 8.72, 3.6 ] } },
-{ "type": "Feature", "properties": { "SITE": "Carboneras", "LAT": 3.75, "LONG": 8.75 }, "geometry": { "type": "Point", "coordinates": [ 8.75, 3.75 ] } }
+{ "type": "Feature", "properties": { "SITE": "Carboneras", "LAT": 3.75, "LONG": 8.75 }, "geometry": { "type": "Point", "coordinates": [ 8.75, 3.75 ] } },
+{ "type": "Feature", "properties": { "SITE": "indet", "LAT": 0.0, "LONG": 0.0 }, "geometry": { "type": "Point", "coordinates": [ 0.0, 0.0 ] } }
 ]
 }
