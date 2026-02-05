@@ -409,7 +409,7 @@
 { "type": "Feature", "properties": { "SITE": "Ibamba/P2", "LAT": 1.22, "LONG": 16.84 }, "geometry": { "type": "Point", "coordinates": [ 16.84, 1.22 ] } },
 { "type": "Feature", "properties": { "SITE": "Ifondo", "LAT": 0.48, "LONG": 16.91 }, "geometry": { "type": "Point", "coordinates": [ 16.91, 0.48 ] } },
 { "type": "Feature", "properties": { "SITE": "Ikelemba", "LAT": 1.23, "LONG": 16.5 }, "geometry": { "type": "Point", "coordinates": [ 16.5, 1.23 ] } },
-{ "type": "Feature", "properties": { "SITE": "Ilebo", "LAT": -0.45, "LONG": 17.43 }, "geometry": { "type": "Point", "coordinates": [ 17.43, -0.45 ] } },
+{ "type": "Feature", "properties": { "SITE": "Ilebo/ILL", "LAT": -0.45, "LONG": 17.43 }, "geometry": { "type": "Point", "coordinates": [ 17.43, -0.45 ] } },
 { "type": "Feature", "properties": { "SITE": "Inyenge", "LAT": 0.2, "LONG": 17.11 }, "geometry": { "type": "Point", "coordinates": [ 17.11, 0.2 ] } },
 { "type": "Feature", "properties": { "SITE": "Itandi", "LAT": 0.7, "LONG": 16.59 }, "geometry": { "type": "Point", "coordinates": [ 16.59, 0.7 ] } },
 { "type": "Feature", "properties": { "SITE": "Itanga", "LAT": 1.21, "LONG": 17.41 }, "geometry": { "type": "Point", "coordinates": [ 17.41, 1.21 ] } },
